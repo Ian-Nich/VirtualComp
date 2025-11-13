@@ -1,0 +1,88 @@
+PUSH <imm> – Push immediate value onto stack
+
+PRINT – Print top of stack (does not pop in bytecode path)
+
+MOV R<d> <imm> – Move immediate value into register
+
+ADDR R<d> R<s1> R<s2> – R[d] = R[s1] + R[s2]
+
+LOADR R<s> – Push register R[s] onto stack
+
+STORER R<d> – Pop stack into register R[d]
+
+PRINTR R<s> – Print register value → [PRINTR] Rn = <val>
+
+CMP <L> <R> – Compare operands (register or COUNTER), set flags EQ/GT/LT
+
+JEQ <line> – Jump if EQ flag set
+
+JNE <line> – Jump if EQ flag not set
+
+JGT <line> – Jump if GT flag set
+
+JLT <line> – Jump if LT flag set
+
+LOADM <addr> – Push MEM[addr] onto stack
+
+STOREM <addr> – Pop stack into MEM[addr]
+
+LOADMR R<d> <addr> – R[d] = MEM[addr]
+
+STOREMR <addr> R<s> – MEM[addr] = R[s]
+
+DECR – counter = counter – 1
+
+CPRINT – Print counter → [CPRINT] counter = <val>
+
+CEASE – End program
+
+
+(set up in instructions.txt 
+then run in assembler.py or assembler.cpp
+then run Virtual machine
+
+
+g++ -std=c++17 -o vm main.cpp VirtualMachine.cpp
+
+./vm [options] program.bin
+
+
+Available Options
+Option	Description
+--step	Launch interactive stepper debugger (REPL mode). Lets you step through instructions one at a time.
+--trace	Show raw instruction execution trace (opcode + operands).
+--explain	Show human-readable explanations of each instruction.
+--bp <n>	Set a breakpoint at instruction line n (1-based). Can be repeated (--bp 3 --bp 10).
+
+OR 
+
+Run until CEASE
+./vm program.bin
+
+
+Start in stepper mode
+./vm --step program.bin
+
+
+and Once in the REPL
+
+| Command           | Effect                                            |                                    |
+| ----------------- | ------------------------------------------------- | ---------------------------------- |
+| `step` / `s`      | Execute the next instruction                      |                                    |
+| `cont` / `c`      | Continue until CEASE or breakpoint                |                                    |
+| `regs`            | Show register contents + counter + flags          |                                    |
+| `stack`           | Show current stack                                |                                    |
+| `mem <start> <n>` | Show `n` memory cells starting at address `start` |                                    |
+| `bp add <n>`      | Add a breakpoint at line `n`                      |                                    |
+| `bp del <n>`      | Remove breakpoint at line `n`                     |                                    |
+| `bp list`         | Show all breakpoints                              |                                    |
+| `bp clear`        | Remove all breakpoints                            |                                    |
+| \`trace on        | off\`                                             | Toggle raw instruction trace       |
+| \`explain on      | off\`                                             | Toggle human-readable explanations |
+| `disasm`          | Disassemble loaded bytecode back to instructions  |                                    |
+| `help`            | Show command list (with short descriptions)       |                                    |
+| `quit` / `q`      | Exit debugger                                     |                                    |
+
+
+)
+

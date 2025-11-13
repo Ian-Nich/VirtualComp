@@ -1,0 +1,6 @@
+.loop:
+PRINTR R0
+DECR
+CMP COUNTER R1
+JGT .loop
+CEASE

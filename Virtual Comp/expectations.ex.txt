@@ -1,0 +1,57 @@
+Arithmetic Demo
+
+MOV R0 7
+MOV R1 5
+ADDR R2 R0 R1
+PRINTR R2          ; expect: [PRINTR] R2 = 12
+STOREMR 10 R2
+LOADMR R3 10
+PRINTR R3          ; expect: [PRINTR] R3 = 12
+PUSH 99
+PRINT              ; expect: 99
+CEASE
+
+Expect:
+[PRINTR] R2 = 12
+[PRINTR] R3 = 12
+99
+
+
+Control Flow Demo
+
+MOV R0 1
+MOV R1 1
+CMP R0 R1
+JEQ 8
+PRINTR R0          ; skipped
+CEASE
+PRINTR R1          ; expect: [PRINTR] R1 = 1
+CEASE
+
+Expect:
+[PRINTR] R1 = 1
+
+
+
+Memory Demo
+
+MOV R0 42
+STOREMR 20 R0
+LOADMR R1 20
+PRINTR R1          ; expect: [PRINTR] R1 = 42
+CEASE
+
+Expect:
+[PRINTR] R1 = 42
+
+
+Counter Demo
+
+CPRINT             ; expect: [CPRINT] counter = 0
+DECR
+CPRINT             ; expect: [CPRINT] counter = -1
+CEASE
+
+Expect:
+[CPRINT] counter = 0
+[CPRINT] counter = -1
